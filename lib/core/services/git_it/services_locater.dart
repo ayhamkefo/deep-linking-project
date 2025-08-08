@@ -1,5 +1,8 @@
 import 'package:deeplinking_project/core/services/api/api_services.dart';
 import 'package:deeplinking_project/core/services/api/urls.dart';
+import 'package:deeplinking_project/feature/home/data/repos/home_repo.dart';
+import 'package:deeplinking_project/feature/home/data/repos/home_repo_iplm.dart';
+import 'package:deeplinking_project/feature/home/presentations/cubit/home_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
 
@@ -19,11 +22,11 @@ void setupLocatorServices() {
   );
 
   // ApiServices
-  //getit.registerLazySingleton<ApiServices>(() => ApiServices(getit<Dio>()));
+  getit.registerLazySingleton<ApiServices>(() => ApiServices(getit<Dio>()));
 
   //repos
-  //getit.registerLazySingleton<HomeRepo>(() => HomeRepoImpl(getit.get<ApiServices>()));
+  getit.registerLazySingleton<HomeRepo>(() => HomeRepoIplm(getit.get<ApiServices>()));
 
   //cubits
-  //getit.registerFactory<HomeCubit>(() => HomeCubit(getit.get<HomeRepo>()));
+  getit.registerLazySingleton<HomeCubit>(() => HomeCubit(getit.get<HomeRepo>()));
 }

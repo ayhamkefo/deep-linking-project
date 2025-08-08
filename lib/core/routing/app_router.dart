@@ -1,15 +1,18 @@
-import 'package:deeplinking_project/main.dart';
+import 'package:deeplinking_project/core/routing/route_paths.dart';
+import 'package:deeplinking_project/feature/home/presentations/veiws/home_screen.dart';
+import 'package:deeplinking_project/feature/home/presentations/veiws/proudct_details_screen.dart';
 import 'package:go_router/go_router.dart';
 
 abstract class AppRouter {
-  //auth pages
-  static const String kHomePageRoute = '/homePage';
-
   static final router = GoRouter(
     routes: [
+      GoRoute(path: RoutePaths.home, builder: (context, state) => const HomeScreen()),
       GoRoute(
-        path: '/',
-        builder: (context, state) => const MyHomePage(title: 'Flutter Demo Home Page'),
+        path: RoutePaths.productDetail,
+        builder: (context, state) {
+          final id = state.pathParameters['id']!;
+          return ProductDetailScreen(productId: id);
+        },
       ),
     ],
   );
